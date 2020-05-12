@@ -10,7 +10,7 @@ There is one special admin user who can access to those logs.
 Few thechnical information about the coding design:
 The backend logic is as follows:
   There is Database class which implements the abstract IDB class - by implemeting the
-   the basic operations of database.
+    basic operations of database.
    This concrete Database is implemented with file text (as a container to the data).
    When the database will be created, it'll create his data files locally.
   
