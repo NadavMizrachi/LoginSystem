@@ -34,17 +34,23 @@ class Database(IDB.IDB):
         self.__init_db_files()
 
     def __init_db_files(self):
-        if not os.path.exists(Database.file_name):
+        if self.__is_file_not_exists(Database.file_name):
             open(Database.file_name, 'w+')
-        if not os.path.isdir(Database.data_files_dir_name):
+        if self.__is_directory_not_exits(Database.data_files_dir_name):
             os.mkdir(Database.data_files_dir_name)
+
+    def __is_file_not_exists(self, file_name):
+        return os.path.exists(Database.file_name) == False
+
+    def __is_directory_not_exits(self, dir_name):
+        return os.path.isdir(dir_name) == False
 
     def validate_user(self, username, passwd):
         with open(Database.file_name, 'r') as db_file:
             records = db_file.read().splitlines()
             for record in records:
                 if self.__username_match(record, username):
-                    if self.__pass_match(record, passwd):
+                    if self.__password_match(record, passwd):
                         self.log_system.logging_log(username)
                         return  # User is valid
                     else:
@@ -56,7 +62,7 @@ class Database(IDB.IDB):
             return False
         return record.split()[0] == username
 
-    def __pass_match(self, record, passwd):
+    def __password_match(self, record, passwd):
         if len(record.split()) != 2:
             return False
         return record.split()[1] == passwd
@@ -97,9 +103,6 @@ class Database(IDB.IDB):
         data_file_name = self.__generate_user_datafile_name(username)
         new_data_file = open(data_file_name, 'w')
         new_data_file.close()
-
-    def __is_directory_not_exits(self, dir_name):
-        return os.path.isdir(dir_name) == False
 
     def __generate_user_datafile_name(self, username):
         name = os.path.join(Database.data_files_dir_name, username + ".dat")
