@@ -5,14 +5,7 @@ import datetime
 import Logger
 import Admin
 
-"""
-    For each user, the database will save his data on file. The file name will be associated 
-    with the user by his name (The database will create those files).
-    Example:
-        If the username is: NADAV
-        then the data will be saved on NADAV.dat file.
-    the data files will be saved on special directory.
-    Database that will save the users credentials records on txt file. 
+""" Database that will save the users credentials records on txt file. 
     The format of the records in this file is:
     
     USERNAME1    PASSWORD1
@@ -21,6 +14,14 @@ import Admin
     ...         ...
     
     And so on.
+    
+    For each user, the database will save his data on file. The file name will be associated 
+    with the user by his name (The database will create those files).
+    Example:
+        If the username is: NADAV
+        then the data will be saved on NADAV.dat file.
+    the data files will be saved on special directory.
+   
 """
 
 
