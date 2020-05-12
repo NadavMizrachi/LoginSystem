@@ -15,15 +15,18 @@ class Logger:
         self.__init_files()
 
     def __init_files(self):
-        if not os.path.exists(Logger.log_file_name):
+        if self.__is_file_not_exists(Logger.log_file_name):
             open(Logger.log_file_name, 'w+')
 
-    def creation_log(self, key):
+    def __is_file_not_exists(self, log_file_name):
+        return os.path.exists(log_file_name) == False
+
+    def user_created_log(self, key):
         with open(self.log_file, 'a+') as lg_f:
             data = self.__create_creation_string(key)
             lg_f.write(data)
 
-    def pulling_data_log(self, key):
+    def user_pulled_data_log(self, key):
         with open(self.log_file, 'a+') as lg_f:
             data = self.__pulling_data_string(key)
             lg_f.write(data)
@@ -37,12 +40,12 @@ class Logger:
     def __create_timestamp(self):
         return str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
-    def saving_data_log(self, key):
+    def user_pushed_data_log(self, key):
         with open(self.log_file, 'a+') as lg_f:
-            data = self.__create_saving_data_log_string(key)
+            data = self.__create_user_pushed_data_log_string(key)
             lg_f.write(data)
 
-    def __create_saving_data_log_string(self, key):
+    def __create_user_pushed_data_log_string(self, key):
         return self.__create_timestamp() + " " + str(key) + " saved data.\n"
 
     def logging_log(self, key):

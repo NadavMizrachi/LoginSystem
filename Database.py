@@ -76,7 +76,7 @@ class Database(IDB.IDB):
             raise Exceptions.UnvalidPassword()
         self.__create_user_record(username, passwd)
         self.__create_user_datafile(username)
-        self.log_system.creation_log(username)
+        self.log_system.user_created_log(username)
 
     def __is_user_exist(self, username):
         with open(Database.file_name, 'r') as db_file:
@@ -111,7 +111,7 @@ class Database(IDB.IDB):
     def get_user_data(self, username):
         with open(self.__generate_user_datafile_name(username), 'r') as data_file:
             data = data_file.read()
-            self.log_system.pulling_data_log(username)
+            self.log_system.user_pulled_data_log(username)
             return data
 
     def update_data(self, username, new_data):
@@ -119,7 +119,7 @@ class Database(IDB.IDB):
             self.__write_data_timestamp(data_file)
             data_file.write(new_data)
             self.__write_seperator(data_file)
-            self.log_system.saving_data_log(username)
+            self.log_system.user_pushed_data_log(username)
 
     def __write_data_timestamp(self, data_file):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
